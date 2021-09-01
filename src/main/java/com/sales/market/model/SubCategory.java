@@ -1,9 +1,13 @@
-package com.sales.market.models;
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+package com.sales.market.model;
 
 import javax.persistence.Entity;
 
 @Entity
-public class Category extends ModelBase {
+public class SubCategory extends ModelBase {
     private String name;
     private String code;
 

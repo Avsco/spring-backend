@@ -1,4 +1,8 @@
-package com.sales.market.models;
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+package com.sales.market.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,10 +16,14 @@ public class Employee extends ModelBase {
     private String lastName;
     private Byte[] image;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-    List<Contract> contracts;
+    // por defecto en fields es EAGER y en collecciones es LAZY  y todo valor booleano es true
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REMOVE})
+    // mapped by employee es el nombre de la variable en Contrato copprespondiente a el field Employee
+    private List<Contract> contracts;
 
     public String getFirstName() {
+
         return firstName;
     }
 

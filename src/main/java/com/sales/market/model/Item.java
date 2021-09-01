@@ -1,4 +1,8 @@
-package com.sales.market.models;
+/**
+ * @author: Edson A. Terceros T.
+ */
+
+package com.sales.market.model;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -10,6 +14,9 @@ public class Item extends ModelBase {
     private Byte[] image;
     @OneToOne(targetEntity = SubCategory.class)
     private SubCategory subCategory;
+
+    @OneToOne(targetEntity = SubCategory.class)
+    private SubCategory subCategorySt2;
 
     public String getName() {
         return name;
