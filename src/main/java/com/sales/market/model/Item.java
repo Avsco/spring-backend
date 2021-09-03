@@ -5,16 +5,32 @@
 package com.sales.market.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.Set;
 
 @Entity
 public class Item extends ModelBase {
     private String name;
     private String code;
+    private String brand;
+    private String description;
+    @Lob
     private Byte[] image;
-    @OneToOne(targetEntity = SubCategory.class)
+    @OneToOne
     private SubCategory subCategory;
 
+    @OneToMany
+    private Set<FeatureInstance> featureInstances;
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
     public String getName() {
         return name;

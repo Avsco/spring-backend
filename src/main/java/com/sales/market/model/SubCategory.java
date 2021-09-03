@@ -5,11 +5,23 @@
 package com.sales.market.model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SubCategory extends ModelBase {
     private String name;
     private String code;
+
+    @ManyToOne(optional = false)
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public String getName() {
         return name;
