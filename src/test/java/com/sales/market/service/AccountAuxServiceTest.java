@@ -3,12 +3,15 @@ package com.sales.market.service;
 import com.sales.market.model.AccountAux;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
 class AccountAuxServiceTest {
     @Autowired
     private AccountAuxService accountAuxService;
@@ -20,7 +23,6 @@ class AccountAuxServiceTest {
         accountAux.setBalance(new BigDecimal("100"));
         accountAux.setTotalDebit(BigDecimal.ZERO);
         AccountAux finalAccountAux = this.accountAuxService.save(accountAux);
-        System.out.println(finalAccountAux.getId());
         return finalAccountAux;
     }
 
@@ -42,8 +44,15 @@ class AccountAuxServiceTest {
                                     new BigDecimal("100")
                             )
                     ).orTimeout(60, TimeUnit.SECONDS);
+            completableFutureFirstOperation.get();
+            completableFutureSecondOperation.get();
+            AccountAux accountAux2 = accountAuxService.getById(finalAccountAux.getId());
+            System.out.println(accountAux2.getBalance());
+            System.out.println(accountAux2.getTotalDebit());
+            System.out.println(accountAux2.getTotalCredit());
         } catch (Exception executionException) {
             AccountAux accountAux2 = accountAuxService.getById(finalAccountAux.getId());
+            System.out.println(123);
             System.out.println(accountAux2.getBalance());
             System.out.println(accountAux2.getTotalDebit());
             System.out.println(accountAux2.getTotalCredit());
@@ -68,6 +77,11 @@ class AccountAuxServiceTest {
                                 new BigDecimal("100")
                         )
                 ).orTimeout(60, TimeUnit.SECONDS);
+
+//        completableFutureSecondOperation.thenApply(() -> {
+//            AccountAux accountAux2 = accountAuxService.getById(finalAccountAux.getId());
+//            assertEquals(0, accountAux2.getBalance());
+//        })
 
         AccountAux accountAux2 = accountAuxService.getById(finalAccountAux.getId());
         assertEquals(0, accountAux2.getBalance());
